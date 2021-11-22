@@ -1,0 +1,50 @@
+{
+    "name": "dirkpersky/typo3-dp_news_import",
+    "type": "typo3-cms-extension",
+    "description": "Import External News to EXT:news",
+    "keywords": [
+        "TYPO3",
+        "News",
+        "Import"
+    ],
+    "homepage": "https://github.com/DirkPersky/dp_news_import",
+    "support": {
+        "issues": "https://github.com/DirkPersky/dp_news_import/issues"
+    },
+    "authors": [
+        {
+            "name": "Dirk Persky",
+            "role": "Developer",
+            "homepage": "http://dp-wired.de"
+        }
+    ],
+    "license": [
+        "AGPL-3.0-or-later"
+    ],
+    "require": {
+        "typo3/cms-core": "^9.5.0||^10.4.0||^11.5.0||dev-master",
+        "georgringer/news": "^8 || 9"
+    },
+    "replace": {
+        "typo3-ter/dp_news_import": "self.version"
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin"
+    },
+    "autoload": {
+        "psr-4": {
+            "DirkPersky\\NewsImport\\": "Classes/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "dp_news_import",
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/Web"
+        }
+    },
+    "scripts": {
+        "zip": "grep -Po \"(?<='version' => ')([0-9]+.[0-9]+.[0-9]+)\" ext_emconf.php | xargs -I {version} sh -c 'git archive -v -o \"dp_news_import.zip\" version'"
+    }
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2021-11-22T14:53:14Z" product-name="dp_news_import">
+		<header/>
+		<body>
+			<trans-unit id="tx_news_domain_model_news.import_data" xml:space="preserve">
+				<source>Import Data</source>
+			</trans-unit>
+            <trans-unit id="tx_news_domain_model_news.import_id" xml:space="preserve">
+                <source>Import ID</source>
+            </trans-unit>
+
+
+            <trans-unit id="task.name" xml:space="preserve">
+                <source>News Import</source>
+            </trans-unit>
+            <trans-unit id="task.description" xml:space="preserve">
+                <source>Import of *.json news</source>
+            </trans-unit>
+
+
+            <trans-unit id="error.noValidPath" xml:space="preserve">
+                <source>No valid Path defined</source>
+            </trans-unit>
+            <trans-unit id="error.pid" xml:space="preserve">
+                <source>select storage PID</source>
+            </trans-unit>
+
+
+            <trans-unit id="scheduler.format" xml:space="preserve">
+                <source>Import file type</source>
+            </trans-unit>
+            <trans-unit id="scheduler.path" xml:space="preserve">
+                <source>Source Path</source>
+            </trans-unit>
+            <trans-unit id="scheduler.pid" xml:space="preserve">
+                <source>Storage PID</source>
+            </trans-unit>
+            <trans-unit id="scheduler.mapping" xml:space="preserve">
+                <source>Category Mapping</source>
+            </trans-unit>
+            <trans-unit id="scheduler.setSlug" xml:space="preserve">
+                <source>Update News Slug</source>
+            </trans-unit>
+		</body>
+	</file>
+</xliff>
