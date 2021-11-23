@@ -30,6 +30,12 @@
             <trans-unit id="scheduler.format" xml:space="preserve">
                 <source>Import file type</source>
             </trans-unit>
+            <trans-unit id="scheduler.format.JSON" xml:space="preserve">
+                <source>JSON</source>
+            </trans-unit>
+            <trans-unit id="scheduler.format.XML" xml:space="preserve">
+                <source>XML</source>
+            </trans-unit>
             <trans-unit id="scheduler.path" xml:space="preserve">
                 <source>Source Path</source>
             </trans-unit>

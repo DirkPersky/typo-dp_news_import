@@ -26,7 +26,8 @@
         "georgringer/news": "^8 || 9"
     },
     "replace": {
-        "typo3-ter/dp_news_import": "self.version"
+      "dp_news_import": "self.version",
+      "typo3-ter/dp_news_import": "self.version"
     },
     "config": {
         "vendor-dir": ".Build/vendor",

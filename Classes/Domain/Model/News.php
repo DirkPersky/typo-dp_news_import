@@ -1,8 +1,17 @@
 <?php
+/*
+ * Copyright (c) 2021.
+ *
+ * @category   Shopware
+ *
+ * @copyright  2020 Dirk Persky (https://github.com/DirkPersky)
+ * @author     Dirk Persky <dirk.persky@gmail.com>
+ * @license     AGPL
+ */
 
 namespace DirkPersky\NewsImport\Domain\Model;
 
-class NewsDefault extends \GeorgRinger\News\Domain\Model\NewsDefault
+class News extends \GeorgRinger\News\Domain\Model\News
 {
     /**
      * @var string|null
@@ -12,7 +21,7 @@ class NewsDefault extends \GeorgRinger\News\Domain\Model\NewsDefault
     /**
      * @var string|null
      */
-    protected $importId;
+    protected $importRef;
 
     /**
      * @return string|null
@@ -33,17 +42,19 @@ class NewsDefault extends \GeorgRinger\News\Domain\Model\NewsDefault
     /**
      * @return string|null
      */
-    public function getImportId(): ?string
+    public function getImportRef(): ?string
     {
-        return $this->importId;
+        return $this->importRef;
     }
 
     /**
-     * @param string|null $importId
+     * @param string|null $importRef
      */
-    public function setImportId(?string $importId): void
+    public function setImportRef(?string $importRef): void
     {
-        $this->importId = $importId;
+        $this->importRef = $importRef;
     }
+
+
 
 }

@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace DirkPersky\NewsImport\Tasks;
 
 
+use DirkPersky\NewsImport\Jobs\ImportJob;
+use DirkPersky\NewsImport\Model\TaskConfiguration;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
-use DirkPersky\NewsImport\Model\TaskConfiguration;
-use DirkPersky\NewsImport\Jobs\ImportJob;
 /**
  * Provides Import task
  */

@@ -1,4 +1,13 @@
 <?php
+/*
+ * Copyright (c) 2021.
+ *
+ * @category   Shopware
+ *
+ * @copyright  2020 Dirk Persky (https://github.com/DirkPersky)
+ * @author     Dirk Persky <dirk.persky@gmail.com>
+ * @license     AGPL
+ */
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
@@ -16,20 +25,18 @@ $fields = [
             'readOnly' => true,
         ]
     ],
-    'import_id' => [
+    'import_ref' => [
         'exclude' => true,
         'label' => 'LLL:EXT:dp_news_import/Resources/Private/Language/locallang.xlf:tx_news_domain_model_news.import_id',
         'config' => [
             'type' => 'text',
-            'cols' => 60,
-            'rows' => 20,
             'readOnly' => true,
         ]
     ]
 ];
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tx_news_domain_model_news', $fields);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tx_news_domain_model_news', 'import_data');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tx_news_domain_model_news', 'import_id');
+ExtensionManagementUtility::addTCAcolumns('tx_news_domain_model_news', $fields);
+ExtensionManagementUtility::addToAllTCAtypes('tx_news_domain_model_news', 'import_data');
+ExtensionManagementUtility::addToAllTCAtypes('tx_news_domain_model_news', 'import_ref');
 
 

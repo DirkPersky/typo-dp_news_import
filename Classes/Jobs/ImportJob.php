@@ -13,12 +13,13 @@ declare(strict_types=1);
 
 namespace DirkPersky\NewsImport\Jobs;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use DirkPersky\NewsImport\Mapper;
+use DirkPersky\NewsImport\Model\TaskConfiguration;
+use Exception;
+use GeorgRinger\News\Domain\Service\NewsImportService;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
-use GeorgRinger\News\Domain\Service\NewsImportService;
-use DirkPersky\NewsImport\Model\TaskConfiguration;
-use DirkPersky\NewsImport\Mapper;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ImportJob
 {
@@ -34,7 +35,7 @@ class ImportJob
     protected $logger;
 
     /**
-     * @var \GeorgRinger\News\Domain\Service\NewsImportService
+     * @var NewsImportService
      */
     protected $newsImportService;
 
@@ -55,6 +56,7 @@ class ImportJob
 
     /**
      * Import remote content
+     * @throws Exception
      */
     public function run()
     {

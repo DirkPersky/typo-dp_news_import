@@ -16,15 +16,13 @@ namespace DirkPersky\NewsImport\Tasks;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider;
+use TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface;
 use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 use TYPO3\CMS\Scheduler\Task\Enumeration\Action;
 
-
-class ImportTaskAdditionalFieldProvider extends AbstractAdditionalFieldProvider
+class ImportTaskAdditionalFieldProviderOld implements AdditionalFieldProviderInterface
 {
-
     /**
      * @param array $taskInfo
      * @param AbstractTask $task
@@ -38,19 +36,17 @@ class ImportTaskAdditionalFieldProvider extends AbstractAdditionalFieldProvider
             'format' => ['type' => 'select', 'options' => ['JSON']],
             'path' => ['type' => 'input'],
             'pid' => ['type' => 'input'],
-            'mapping' => ['type' => 'textarea'],
-            'setSlug' => ['type' => 'checkbox'],
+            'mapping' => ['type' => 'textarea']
         ];
 
-        $currentAction = $parentObject->getCurrentAction();
         foreach ($fields as $field => $configuration) {
             if (empty($taskInfo[$field])) {
                 // set Default Value
                 $taskInfo[$field] = '';
                 // get prefill value
-                if ($currentAction->equals(Action::ADD) && isset($configuration['default'])) {
+                if ($parentObject->CMD === 'add' && isset($configuration['default'])) {
                     $taskInfo[$field] = $configuration['default'];
-                } elseif ($currentAction->equals(Action::EDIT)) {
+                } elseif ($parentObject->CMD === 'edit') {
                     $taskInfo[$field] = $task->$field;
                 }
             }
@@ -92,6 +88,17 @@ class ImportTaskAdditionalFieldProvider extends AbstractAdditionalFieldProvider
     }
 
     /**
+     * @param string $key
+     * @return string
+     */
+    protected function translate(string $key): string
+    {
+        /** @var LanguageService $languageService */
+        $languageService = $GLOBALS['LANG'];
+        return $languageService->sL('LLL:EXT:dp_news_import/Resources/Private/Language/locallang.xlf:scheduler.' . $key);
+    }
+
+    /**
      * @param array $data
      * @param SchedulerModuleController $parentObject
      * @return bool
@@ -121,17 +128,6 @@ class ImportTaskAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         $task->mapping = $submittedData['mapping'];
         $task->format = $submittedData['format'];
         $task->pid = $submittedData['pid'];
-        $task->setSlug = $submittedData['setSlug'];
-    }
-
-    /**
-     * @param string $key
-     * @return string
-     */
-    protected function translate(string $key): string
-    {
-        /** @var LanguageService $languageService */
-        $languageService = $GLOBALS['LANG'];
-        return $languageService->sL('LLL:EXT:dp_news_import/Resources/Private/Language/locallang.xlf:scheduler.' . $key);
+        $task->setSlug = false;
     }
 }
