@@ -31,6 +31,8 @@ abstract class AbstractMapper
     /** @var NewsRepository */
     protected $newsRepository;
 
+    const TITLE_LENGTH = 125;
+
     public function __construct()
     {
         $fieldConfig = $GLOBALS['TCA']['tx_news_domain_model_news']['columns']['path_segment']['config'];
@@ -60,8 +62,37 @@ abstract class AbstractMapper
         $replace = [LF, LF, LF, LF];
         $content = str_replace($search, $replace, $content);
         // trim and add Breaks
-        $content = nl2br(trim($content));
+        $content = htmlentities(trim($content));
         // remove undisplayable icons
-        return preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $content);
+        return nl2br(html_entity_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $content)));
+    }
+
+    protected function splitTitle(string $text)
+    {
+        // split headline from text
+        list($title, $text) = array_map('trim', explode("\n", $text, 2));
+        // build title & text for to long first line
+        if (strlen($title) > static::TITLE_LENGTH) {
+            // split after length
+            $prepText = substr($title, static::TITLE_LENGTH);
+            // find next whitespace for real split
+            $count = strpos($prepText, ' ');
+            if ($count !== false) {
+                // build new PrepText
+                $prepText = substr($prepText, $count);
+            } else {
+                // trim fix for non count
+                $count = -1;
+            }
+            // substr new title
+            $title = substr($title, 0, static::TITLE_LENGTH + $count) . '...';
+            // build final title
+            $title = trim($title) . ($count < 0 ? '...' : '');
+            // build main text
+            $text = trim($prepText) . "\n" . $text;
+        }
+
+        // return to pasing
+        return [$title, $text];
     }
 }

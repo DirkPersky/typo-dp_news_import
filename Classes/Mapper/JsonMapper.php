@@ -45,8 +45,12 @@ class JsonMapper extends AbstractMapper implements MapperInterface
             $teaser = $item->{'teaser'};
             $detail = $item->{'detail'};
             // extract headline
-            if (empty($title)) list($title, $teaser) = explode("\n", $teaser, 2);
-            if (empty($title)) list($title, $detail) = explode("\n", $detail, 2);
+            if (empty($title)) {
+                list($title, $teaser) = $this->splitTitle($teaser);
+            }
+            if (empty($title)) {
+                list($title, $detail) = $this->splitTitle($detail);
+            }
             // import Data set
             $singleItem = [
                 'import_id' => $id,
