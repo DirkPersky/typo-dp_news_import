@@ -33,7 +33,7 @@ class ImportTaskAdditionalFieldProviderOld implements AdditionalFieldProviderInt
     {
         $additionalFields = [];
         $fields = [
-            'format' => ['type' => 'select', 'options' => ['JSON']],
+            'format' => ['type' => 'select', 'options' => ['JSON', 'XML']],
             'path' => ['type' => 'input'],
             'pid' => ['type' => 'input'],
             'mapping' => ['type' => 'textarea']
@@ -46,9 +46,10 @@ class ImportTaskAdditionalFieldProviderOld implements AdditionalFieldProviderInt
                 // get prefill value
                 if ($parentObject->CMD === 'add' && isset($configuration['default'])) {
                     $taskInfo[$field] = $configuration['default'];
-                } elseif ($parentObject->CMD === 'edit') {
+                } else {
                     $taskInfo[$field] = $task->$field;
                 }
+
             }
 
             $value = htmlspecialchars((string)$taskInfo[$field]);
