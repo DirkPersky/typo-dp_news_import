@@ -68,6 +68,9 @@ class ImportJob
         ));
         // init Mapper by Type an run import
         switch (strtolower($this->configuration->getFormat())) {
+            case 'xml':
+                $mapper = new Mapper\XMLMapper();
+                break;
             default:
                 $mapper = new Mapper\JsonMapper();
         }

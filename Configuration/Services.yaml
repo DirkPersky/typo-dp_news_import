@@ -1,0 +1,7 @@
+services:
+  DirkPersky\NewsImport\EventListener\PostImportListener:
+    tags:
+      - name: event.listener
+        identifier: 'dp-news-import-post-hydrate'
+        method: 'postHydrate'
+        event: GeorgRinger\News\Event\NewsImportPostHydrateEvent

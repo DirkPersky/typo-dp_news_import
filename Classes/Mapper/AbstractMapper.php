@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace DirkPersky\NewsImport\Mapper;
 
 use GeorgRinger\News\Domain\Repository\NewsRepository;
+use GeorgRinger\News\Domain\Repository\CategoryRepository;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Log\Logger;
@@ -31,6 +32,9 @@ abstract class AbstractMapper
     /** @var NewsRepository */
     protected $newsRepository;
 
+    /** @var CategoryRepository */
+    protected $categoryRepository;
+
     const TITLE_LENGTH = 125;
 
     public function __construct()
@@ -40,6 +44,7 @@ abstract class AbstractMapper
         $this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
 
         $this->newsRepository = GeneralUtility::makeInstance(NewsRepository::class);
+        $this->categoryRepository = GeneralUtility::makeInstance(CategoryRepository::class);
 
         if (class_exists(SlugHelper::class) === true) {
             $this->slugHelper = GeneralUtility::makeInstance(SlugHelper::class, 'tx_news_domain_model_news', 'path_segment', $fieldConfig);
@@ -49,6 +54,18 @@ abstract class AbstractMapper
     protected function findRecord($id, $source)
     {
         return $this->newsRepository->findOneByImportSourceAndImportId($source, $id);
+    }
+    protected function findCatByName($name)
+    {
+        $query = $this->categoryRepository->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->getQuerySettings()->setIgnoreEnableFields(true);
+
+        $result = $query->matching(
+            $query->equals('title', $name)
+        )->execute();
+
+        return $result->getFirst();
     }
 
     /**
