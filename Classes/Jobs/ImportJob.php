@@ -69,10 +69,10 @@ class ImportJob
         // init Mapper by Type an run import
         switch (strtolower($this->configuration->getFormat())) {
             case 'xml':
-                $mapper = new Mapper\XMLMapper();
+                $mapper = GeneralUtility::makeInstance(Mapper\XMLMapper::class);
                 break;
             default:
-                $mapper = new Mapper\JsonMapper();
+                $mapper = GeneralUtility::makeInstance(Mapper\JsonMapper::class);
         }
         // log import result
         $this->import($mapper->execute($this->configuration));

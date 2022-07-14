@@ -5,3 +5,9 @@ services:
         identifier: 'dp-news-import-post-hydrate'
         method: 'postHydrate'
         event: GeorgRinger\News\Event\NewsImportPostHydrateEvent
+  DirkPersky\NewsImport\EventListener\WKWallsImportListener:
+    tags:
+      - name: event.listener
+        identifier: 'dp-news-import-for-wk-walls'
+        method: 'parseJSON'
+        event: DirkPersky\NewsImport\Event\JSONMapperEvent
